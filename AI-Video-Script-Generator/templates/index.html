@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scriptly — AI Video Script Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><span class="brand-icon">▶</span> scriptly<span class="dot">.</span></a><span class="top-note">AI CONTENT STUDIO</span></header>
+  <main class="shell">
+    <section class="hero"><div class="eyebrow"><span class="pulse"></span> YOUR CREATIVE CO-PILOT</div>
+      <h1>Turn ideas into<br><span>videos worth watching.</span></h1>
+      <p>Generate structured video scripts with hooks, scene cues, timing, and marketing ideas — all in one place.</p>
+    </section>
+    <section class="workspace">
+      <form id="scriptForm" class="panel form-panel">
+        <div class="panel-heading"><div><span class="step">01</span><h2>Build your script</h2></div><span class="tiny-label">SCRIPT SETTINGS</span></div>
+        <label for="topic">What's your video about?</label>
+        <textarea id="topic" name="topic" rows="2" placeholder="e.g. 5 beginner-friendly Python tips" required minlength="2"></textarea>
+        <div class="field-row">
+          <div class="field"><label for="platform">Platform</label><select id="platform">
+            {% for key, cfg in platforms.items() %}<option value="{{ key }}">{{ cfg.label }}</option>{% endfor %}
+          </select></div>
+          <div class="field"><label for="tone">Tone</label><select id="tone"><option>engaging</option><option>casual</option><option>professional</option><option>humorous</option><option>educational</option><option>persuasive</option></select></div>
+        </div>
+        <label for="audience">Target audience</label><input id="audience" value="beginners" placeholder="e.g. college students">
+        <label for="goal">Main goal</label><input id="goal" value="educate and engage" placeholder="e.g. explain a concept">
+        <div class="field-row">
+          <div class="field"><label for="hook">Hook style</label><select id="hook"><option value="auto">Surprise me</option><option value="question">Question</option><option value="problem">Problem</option><option value="promise">Promise</option><option value="story">Story</option></select></div>
+          <div class="field"><label for="cta">Call to action</label><select id="cta"><option value="subscribe">Subscribe</option><option value="comment">Comment</option><option value="share">Share</option><option value="follow">Follow</option></select></div>
+        </div>
+        <button class="primary" id="generateBtn" type="submit"><span>✦</span> Generate my script <span class="arrow">→</span></button>
+        <p class="fine-print">Template-powered generation · No API key required</p>
+      </form>
+      <section class="panel output-panel">
+        <div class="panel-heading output-head"><div><span class="step">02</span><h2>Your script</h2></div><div class="actions"><button id="copyBtn" class="ghost" disabled>Copy</button><button id="downloadBtn" class="ghost" disabled>↓ Export</button></div></div>
+        <div id="emptyState" class="empty-state"><div class="empty-icon">✳</div><h3>Your next video starts here.</h3><p>Fill in the details and generate a script to see your hook, content structure, timing, and creative suggestions.</p><div class="empty-tags"><span>HOOKS</span><span>SCENE CUES</span><span>SEO IDEAS</span></div></div>
+        <div id="result" hidden>
+          <div class="stats"><div><span>EST. DURATION</span><strong id="duration">—</strong></div><div><span>WORD COUNT</span><strong id="words">—</strong></div><div><span>PLATFORM</span><strong id="platformOut">—</strong></div></div>
+          <div id="scriptSections" class="script-sections"></div>
+          <div class="extra-grid"><div class="extra-card"><h3>🎬 B-roll ideas</h3><ul id="broll"></ul></div><div class="extra-card"><h3>🎥 Scene directions</h3><ul id="scenes"></ul></div><div class="extra-card"><h3>🎵 Sound cues</h3><ul id="sounds"></ul></div><div class="extra-card"><h3>💡 Title ideas</h3><ul id="titles"></ul></div><div class="extra-card"><h3>🖼 Thumbnail concepts</h3><ul id="thumbs"></ul></div><div class="extra-card"><h3>🔎 SEO kit</h3><p id="description"></p><div id="tags" class="tag-list"></div></div></div>
+        </div>
+        <div id="error" class="error" hidden></div>
+      </section>
+    </section>
+    <footer><span>scriptly<span class="dot">.</span> <span class="muted">AI Video Script Generator</span></span><span>Built for AI-CM-007 · DAS010027</span></footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
